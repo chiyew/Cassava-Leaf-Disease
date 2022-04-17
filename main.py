@@ -82,7 +82,7 @@ def save_uploaded_file(uploaded_file):
 
     try:
 
-        with open(os.path.join('static',uploaded_file.name),'wb') as f:
+        with open(os.path.join(uploaded_file.name),'wb') as f:
             f.write(uploaded_file.getbuffer())
         return 1    
 
@@ -108,7 +108,7 @@ if uploaded_file is not None:
         st.write(prediction[0])
         st.snow()
         # delete uploaded saved picture after prediction
-        os.remove('static/'+uploaded_file.name)
+        os.remove(uploaded_file.name)
         
         # # drawing graphs
         # st.text('Predictions :-')
@@ -124,7 +124,7 @@ st.header("Types of Cassava Leaf Diseases:")
 
 #CBB
 with st.expander("Cassava Bacterial Blight (CBB)", expanded=False):
-    CBBimg = Image.open('static\diseases\Cassava Bacterial Blight (CBB).jpg')
+    CBBimg = Image.open('Cassava Bacterial Blight (CBB).jpg')
     st.image(CBBimg, caption='Cassava Bacterial Blight (CBB)')    
     st.write("Description & Symptoms:")
     st.write("""  
@@ -148,7 +148,7 @@ with st.expander("Cassava Bacterial Blight (CBB)", expanded=False):
      
 #CBSD
 with st.expander("Cassava Brown Streak Virus Disease (CBSD)", expanded=False):
-    CBSDimg = Image.open('static\diseases\Cassava Brown Streak Virus Disease (CBSD).jpg')
+    CBSDimg = Image.open('Cassava Brown Streak Virus Disease (CBSD).jpg')
     st.image(CBSDimg, caption='Cassava Brown Streak Virus Disease (CBSD)')  
     st.write("Description & Symptoms:")
     st.write("""  
@@ -171,7 +171,7 @@ with st.expander("Cassava Brown Streak Virus Disease (CBSD)", expanded=False):
 
 #CGM
 with st.expander("Cassava Green Mottle (CGM)", expanded=False):
-    CGMimg = Image.open('static\diseases\Cassava Green Mottle (CGM).jpg')
+    CGMimg = Image.open('Cassava Green Mottle (CGM).jpg')
     st.image(CGMimg, caption='Cassava Green Mottle (CGM)')    
     st.write("Description & Symptoms:")
     st.write("""  
@@ -196,7 +196,7 @@ with st.expander("Cassava Green Mottle (CGM)", expanded=False):
 
 #CMD
 with st.expander("Cassava Mosaic Disease (CMD)", expanded=False):
-    CMDimg = Image.open('static\diseases\Cassava Mosaic Disease (CMD).jpg')
+    CMDimg = Image.open('Cassava Mosaic Disease (CMD).jpg')
     st.image(CMDimg, caption='Cassava Mosaic Disease (CMD)')  
     st.write("Description & Symptoms:")
     st.write("""  
