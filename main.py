@@ -1,4 +1,4 @@
-from unittest import result
+#import libraries
 import torch
 import cv2
 import time
@@ -7,31 +7,14 @@ import pandas as pd
 import streamlit as st
 import os
 from PIL import Image
-import torchvision.transforms as transforms
 from albumentations.pytorch import ToTensorV2
 from albumentations import (Compose, Normalize, Resize, RandomResizedCrop, HorizontalFlip, VerticalFlip, ShiftScaleRotate, Transpose)
 import matplotlib.pyplot as plt
-import seaborn as sns
 
-#transform image to tensor
-# def im2Tensor(img):
-    
-#     # check = Compose([ToTensorV2()])
-#     # print(type(check))
-#     # return check
-
-#     trans=transforms.Compose([
-#     transforms.ToTensor(),
-#     transforms.Normalize(
-#                 mean=[0.485, 0.456, 0.406],
-#                 std=[0.229, 0.224, 0.225],
-#             ),        
-#        ])
-#     print(type(trans))
-#     return trans(img)
-
+#calculate time
 start_time = time.time()
 
+#predictor function
 def predictor(img):
     model = torch.hub.load('pytorch/vision:v0.10.0', 'resnext50_32x4d', pretrained=False)
     n_features = model.fc.in_features
@@ -109,14 +92,8 @@ if uploaded_file is not None:
         st.snow()
         # delete uploaded saved picture after prediction
         os.remove(uploaded_file.name)
-        
-        # # drawing graphs
-        # st.text('Predictions :-')
-        # fig, ax = plt.subplots()
-        # ax  = sns.barplot(y = 'name',x='values', data = prediction,order = prediction.sort_values('values',ascending=False).name)
-        # ax.set(xlabel='Confidence %', ylabel='Breed')
-        # st.pyplot(fig)
 
+#explain the diseases
 st.write("")
 st.write("")
 st.write("")
@@ -220,9 +197,12 @@ with st.expander("Cassava Mosaic Disease (CMD)", expanded=False):
         The uprooted infected cassava crops should be taken out of the field and dried under the sun before being burnt to destroy the viruses. 
         The contaminated brunt debris should be thrown into dustbin instead of buried in the field to prevent the outbreak of CMD viruses again.
     """)
-
+st.write("")
+st.write("")
 st.write("")
 
+#model performance plots
+st.header("Model Performance:")
 df1 = pd.read_csv("log1.csv")
 # print(df1)
 df2 = pd.read_csv("log2.csv")
@@ -232,42 +212,89 @@ df3 = pd.read_csv("log3.csv")
 df4 = pd.read_csv("log4.csv")
 # print(df4)
 
-# plot1 = plt.plot(df1['epoch'], df1['accuracy'], label="fold1")
-# df = pd.read_csv("log.csv")
-# plot1 = df.groupby('fold')['accuracy'].plot(x ='epoch', y='accuracy', kind = 'line', legend=True)
-# plot1 = plt.show()
-# st.pyplot(plot1)
+#Graph of Accuracy against Epoch - Graph 1
+with st.expander("Graph of Accuracy against Epoch", expanded=False):
+    plot1_1, = plt.plot(df1['epoch'], df1['accuracy'])
+    plot2_1, = plt.plot(df2['epoch'], df2['accuracy'])
+    plot3_1, = plt.plot(df3['epoch'], df3['accuracy'])
+    plot4_1, = plt.plot(df4['epoch'], df4['accuracy'])
 
-# st.pyplot(plot1)
+    plot1_1 = plt.title("Graph of Accuracy against Epoch")
+    plot1_1 = plt.xlabel('Epoch') 
+    plot1_1 = plt.ylabel('Accuracy') 
 
-plot1, = plt.plot(df1['epoch'], df1['accuracy'], label="fold1")
-plot1 = plt.show()
-plot2, = plt.plot(df2['epoch'], df2['accuracy'], label="fold2")
-plot2 = plt.show()
-plot3, = plt.plot(df3['epoch'], df3['accuracy'], label="fold3")
-plot3 = plt.show()
-plot4, = plt.plot(df4['epoch'], df4['accuracy'], label="fold4")
-plot4 = plt.show()
-# plot1 = plt.legend(plot1)
-# plot2 = plt.legend(plot2)
+    plot1_1 = plt.legend(['Fold1', 'Fold2', 'Fold3', 'Fold4'])
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
-st.pyplot(plot1)
+    plot1_1 = plt.show()
+    plot2_1 = plt.show()
+    plot3_1 = plt.show()
+    plot4_1 = plt.show()
 
-# st.line_chart(df)
-# plt = df.plot(x ='fold', y='accuracy', kind = 'line')
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot(plot1_1)
 
-# arr = np.random.normal(1, 1, size=100)
-# fig, ax = plt.subplots()
-# ax.hist(arr, bins=20)
+st.write("")
+#Graph of Accuracy against Average Train Loss - Graph 2
+with st.expander("Graph of Accuracy against Average Train Loss", expanded=False):
+    plot1_2, = plt.plot(df1['epoch'], df1['avg_train_loss'])
+    plot2_2, = plt.plot(df2['epoch'], df2['avg_train_loss'])
+    plot3_2, = plt.plot(df3['epoch'], df3['avg_train_loss'])
+    plot4_2, = plt.plot(df4['epoch'], df4['avg_train_loss'])
 
-# fig, ax = plt.subplots()
-# ax  = sns.barplot(y = 'accuracy',x='fold', data = df,order = df.sort_values('values',ascending=False).name)
-# ax.set(xlabel='epoch', ylabel='Accuracy')
+    plot1_2 = plt.title("Graph of Accuracy against Average Train Loss")
+    plot1_2 = plt.xlabel('Epoch') 
+    plot1_2 = plt.ylabel('Average Train Loss') 
 
+    plot1_2 = plt.legend(['Fold1', 'Fold2', 'Fold3', 'Fold4'])
 
-# st.pyplot(plt)
+    plot1_2 = plt.show()
+    plot2_2 = plt.show()
+    plot3_2 = plt.show()
+    plot4_2 = plt.show()
 
-# st.pyplot(fig)
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot(plot1_2)
 
-# st.write("Hi")
+st.write("")
+#Graph of Accuracy against Average Validation Loss - Graph 3
+with st.expander("Graph of Accuracy against Average Validation Loss", expanded=False):
+    plot1_3, = plt.plot(df1['epoch'], df1['avg_val_loss'])
+    plot2_3, = plt.plot(df2['epoch'], df2['avg_val_loss'])
+    plot3_3, = plt.plot(df3['epoch'], df3['avg_val_loss'])
+    plot4_3, = plt.plot(df4['epoch'], df4['avg_val_loss'])
+
+    plot1_3 = plt.title("Graph of Accuracy against Average Validation Loss")
+    plot1_3 = plt.xlabel('Epoch') 
+    plot1_3 = plt.ylabel('Average Validation Loss') 
+
+    plot1_3 = plt.legend(['Fold1', 'Fold2', 'Fold3', 'Fold4'])
+
+    plot1_3 = plt.show()
+    plot2_3 = plt.show()
+    plot3_3 = plt.show()
+    plot4_3 = plt.show()
+
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot(plot1_3)
+    
+st.write("")
+#Graph of Best Score against Epoch - Graph 4
+with st.expander("Graph of Best Score against Epoch", expanded=False):
+    plot1_4, = plt.plot(df1['epoch'], df1['best_score'])
+    plot2_4, = plt.plot(df2['epoch'], df2['best_score'])
+    plot3_4, = plt.plot(df3['epoch'], df3['best_score'])
+    plot4_4, = plt.plot(df4['epoch'], df4['best_score'])
+
+    plot1_4 = plt.title("Graph of Best Score against Epoch")
+    plot1_4 = plt.xlabel('Epoch') 
+    plot1_4 = plt.ylabel('Best Score') 
+
+    plot1_4 = plt.legend(['Fold1', 'Fold2', 'Fold3', 'Fold4'])
+
+    plot1_4 = plt.show()
+    plot2_4 = plt.show()
+    plot3_4 = plt.show()
+    plot4_4 = plt.show()
+
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot(plot1_4)
