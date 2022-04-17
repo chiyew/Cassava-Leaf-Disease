@@ -82,7 +82,7 @@ def save_uploaded_file(uploaded_file):
 
     try:
 
-        with open(os.path.join('static/images',uploaded_file.name),'wb') as f:
+        with open(os.path.join('static',uploaded_file.name),'wb') as f:
             f.write(uploaded_file.getbuffer())
         return 1    
 
@@ -108,7 +108,7 @@ if uploaded_file is not None:
         st.write(prediction[0])
         st.snow()
         # delete uploaded saved picture after prediction
-        os.remove('static/images/'+uploaded_file.name)
+        os.remove('static/'+uploaded_file.name)
         
         # # drawing graphs
         # st.text('Predictions :-')
@@ -242,7 +242,6 @@ df4 = pd.read_csv("log4.csv")
 
 plot1, = plt.plot(df1['epoch'], df1['accuracy'], label="fold1")
 plot1 = plt.show()
-plt.margins(x=0)
 plot2, = plt.plot(df2['epoch'], df2['accuracy'], label="fold2")
 plot2 = plt.show()
 plot3, = plt.plot(df3['epoch'], df3['accuracy'], label="fold3")
@@ -254,9 +253,6 @@ plot4 = plt.show()
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.pyplot(plot1)
-st.pyplot(plot2)
-st.pyplot(plot3)
-st.pyplot(plot4)
 
 # st.line_chart(df)
 # plt = df.plot(x ='fold', y='accuracy', kind = 'line')
