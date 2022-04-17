@@ -75,7 +75,6 @@ def save_uploaded_file(uploaded_file):
 #create Upload
 uploaded_file = st.file_uploader("Upload Image")
 
-
 if uploaded_file is not None:
     if save_uploaded_file(uploaded_file): 
         # display the image
@@ -88,7 +87,6 @@ if uploaded_file is not None:
         st.write("")
         st.write("Predicted Condition: ", prediction[2])
         st.write("Time taken: %.3f seconds" % (time.time() - start_time))
-        st.write(prediction[0])
         st.snow()
         # delete uploaded saved picture after prediction
         os.remove(uploaded_file.name)
@@ -234,14 +232,14 @@ with st.expander("Graph of Accuracy against Epoch", expanded=False):
     st.pyplot(plot1_1)
 
 st.write("")
-#Graph of Accuracy against Average Train Loss - Graph 2
-with st.expander("Graph of Accuracy against Average Train Loss", expanded=False):
+#Graph of Average Train Loss against Epoch - Graph 2
+with st.expander("Graph of Average Train Loss against Epoch", expanded=False):
     plot1_2, = plt.plot(df1['epoch'], df1['avg_train_loss'])
     plot2_2, = plt.plot(df2['epoch'], df2['avg_train_loss'])
     plot3_2, = plt.plot(df3['epoch'], df3['avg_train_loss'])
     plot4_2, = plt.plot(df4['epoch'], df4['avg_train_loss'])
 
-    plot1_2 = plt.title("Graph of Accuracy against Average Train Loss")
+    plot1_2 = plt.title("Graph of Average Train Loss against Epoch")
     plot1_2 = plt.xlabel('Epoch') 
     plot1_2 = plt.ylabel('Average Train Loss') 
 
@@ -256,14 +254,14 @@ with st.expander("Graph of Accuracy against Average Train Loss", expanded=False)
     st.pyplot(plot1_2)
 
 st.write("")
-#Graph of Accuracy against Average Validation Loss - Graph 3
-with st.expander("Graph of Accuracy against Average Validation Loss", expanded=False):
+#Graph of Average Validation Loss against Epoch - Graph 3
+with st.expander("Graph of Average Validation Loss against Epoch", expanded=False):
     plot1_3, = plt.plot(df1['epoch'], df1['avg_val_loss'])
     plot2_3, = plt.plot(df2['epoch'], df2['avg_val_loss'])
     plot3_3, = plt.plot(df3['epoch'], df3['avg_val_loss'])
     plot4_3, = plt.plot(df4['epoch'], df4['avg_val_loss'])
 
-    plot1_3 = plt.title("Graph of Accuracy against Average Validation Loss")
+    plot1_3 = plt.title("Graph of Average Validation Loss against Epoch")
     plot1_3 = plt.xlabel('Epoch') 
     plot1_3 = plt.ylabel('Average Validation Loss') 
 
@@ -298,3 +296,25 @@ with st.expander("Graph of Best Score against Epoch", expanded=False):
 
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plot1_4)
+
+st.write("")
+#Graph of Average Validation Loss against Average Train Loss - Graph 5
+with st.expander("Graph of Average Validation Loss against Average Train Loss", expanded=False):
+    plot1_5, = plt.plot(df1['avg_train_loss'], df1['avg_val_loss'])
+    plot2_5, = plt.plot(df2['avg_train_loss'], df2['avg_val_loss'])
+    plot3_5, = plt.plot(df3['avg_train_loss'], df3['avg_val_loss'])
+    plot4_5, = plt.plot(df4['avg_train_loss'], df4['avg_val_loss'])
+
+    plot1_5 = plt.title("Graph of Average Validation Loss against Average Train Loss")
+    plot1_5 = plt.xlabel('Average Train Loss') 
+    plot1_5 = plt.ylabel('Average Validation Loss') 
+
+    plot1_5 = plt.legend(['Fold1', 'Fold2', 'Fold3', 'Fold4'])
+
+    plot1_5 = plt.show()
+    plot2_5 = plt.show()
+    plot3_5 = plt.show()
+    plot4_5 = plt.show()
+
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot(plot1_5)
