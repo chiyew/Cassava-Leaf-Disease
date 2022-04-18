@@ -19,7 +19,7 @@ def predictor(img):
     model = torch.hub.load('pytorch/vision:v0.10.0', 'resnext50_32x4d', pretrained=False)
     n_features = model.fc.in_features
     model.fc = torch.nn.Linear(n_features, 5)
-    FILE = "resnext50_32x4d_fold4_best.pth"
+    FILE = "resnext50_32x4d_fold1_best.pth"
     device = torch.device('cpu')
     loaded_model = model
     loaded_model.load_state_dict(torch.load(FILE, map_location=device), strict=False)
@@ -100,7 +100,7 @@ st.header("Types of Cassava Leaf Diseases:")
 #CBB
 with st.expander("Cassava Bacterial Blight (CBB)", expanded=False):
     CBBimg = Image.open('Cassava Bacterial Blight (CBB).jpg')
-    st.image(CBBimg, caption='Cassava Bacterial Blight (CBB)')    
+    st.image(CBBimg, caption='Cassava Bacterial Blight (CBB) (Image Source: Lucid Central)')    
     st.write("Description & Symptoms:")
     st.write("""  
         Cassava Bacterial Blight (CBB) is caused by the bacterium called Xanthomonas axonopodis pv. Manihotis (X. axonopodis) which was firstly discovered in Brazil in 1912. 
@@ -124,7 +124,7 @@ with st.expander("Cassava Bacterial Blight (CBB)", expanded=False):
 #CBSD
 with st.expander("Cassava Brown Streak Virus Disease (CBSD)", expanded=False):
     CBSDimg = Image.open('Cassava Brown Streak Virus Disease (CBSD).jpg')
-    st.image(CBSDimg, caption='Cassava Brown Streak Virus Disease (CBSD)')  
+    st.image(CBSDimg, caption='Cassava Brown Streak Virus Disease (CBSD) (Image Source: Lucid Central)')  
     st.write("Description & Symptoms:")
     st.write("""  
         Cassava Brown Streak Virus Disease (CBSD) is given the term brown streak because of the brown lesions that occasionally emerge on young green stems. 
@@ -147,7 +147,7 @@ with st.expander("Cassava Brown Streak Virus Disease (CBSD)", expanded=False):
 #CGM
 with st.expander("Cassava Green Mottle (CGM)", expanded=False):
     CGMimg = Image.open('Cassava Green Mottle (CGM).jpg')
-    st.image(CGMimg, caption='Cassava Green Mottle (CGM)')    
+    st.image(CGMimg, caption='Cassava Green Mottle (CGM) (Image Source: Lucid Central)')    
     st.write("Description & Symptoms:")
     st.write("""  
         Cassava green mottle (CGM) is another ordinary cassava leaf disease which is caused by cassava green mottle nepovirus from the Secoviridae family. 
@@ -172,7 +172,7 @@ with st.expander("Cassava Green Mottle (CGM)", expanded=False):
 #CMD
 with st.expander("Cassava Mosaic Disease (CMD)", expanded=False):
     CMDimg = Image.open('Cassava Mosaic Disease (CMD).jpg')
-    st.image(CMDimg, caption='Cassava Mosaic Disease (CMD)')  
+    st.image(CMDimg, caption='Cassava Mosaic Disease (CMD) (Image Source: CIAT | The International Center for Tropical Agriculture)')  
     st.write("Description & Symptoms:")
     st.write("""  
         Cassava mosaic disease (CMD) is transmitted by the whitefly (Bemisia Tabaci) that can limit the output of the cassava crops in the Sub-Saharan Africa. 
