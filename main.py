@@ -8,7 +8,7 @@ import streamlit as st
 import os
 from PIL import Image
 from albumentations.pytorch import ToTensorV2
-from albumentations import (Compose, Normalize, Resize, RandomResizedCrop, HorizontalFlip, VerticalFlip, ShiftScaleRotate, Transpose)
+from albumentations import (Compose, Normalize, Resize)
 import matplotlib.pyplot as plt
 
 #calculate time
