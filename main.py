@@ -19,7 +19,7 @@ def predictor(img):
     model = torch.hub.load('pytorch/vision:v0.10.0', 'resnext50_32x4d', pretrained=False)
     n_features = model.fc.in_features
     model.fc = torch.nn.Linear(n_features, 5)
-    FILE = "resnext50_32x4d_fold1_best.pth"
+    FILE = "resnext50_32x4d_fold4_best.pth"
     device = torch.device('cpu')
     loaded_model = model
     loaded_model.load_state_dict(torch.load(FILE, map_location=device), strict=False)
